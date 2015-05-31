@@ -270,7 +270,7 @@ class Instagram
 		}
 
 		foreach ($params as $k => $v) {
-			$params[$k] = urlencode($v);
+			$params[$k] = $v;
 		}
 
 		return $params;
