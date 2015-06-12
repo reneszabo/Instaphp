@@ -1,6 +1,6 @@
 {
-    "name": "instaphp/instaphp",
-    "description": "A library for accessing Instagram's API (v2)",
+    "name": "reneszabo/instaphp",
+    "description": "A library for accessing Instagram's API (v2) fork of instaphp/instaphp",
     "keywords": ["library","instagram","instaphp"],
     "homepage": "http://instaphp.com",
     "license": "MIT",
