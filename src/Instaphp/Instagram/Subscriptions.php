@@ -124,7 +124,7 @@ class Subscriptions extends Instagram
 					break;
 				
 				case 'tag':
-					$responses['tag'][$sub['object_id']][] = $this->Get(sprintf('/tags/%s/media/recent', $sub['object_id']), ['count' => $count]);
+					$responses['tag'][$sub['object_id']][] = $this->Get(sprintf('/tags/%s/media/recent', $sub['object_id']));
 					break;
 				
 				case 'location':
