@@ -206,7 +206,7 @@ class Instagram {
    * @return \Instaphp\Instagram\Response
    */
   protected function post($path, array $params = [], array $headers = []) {
-    $query = $this->prepare($path,$params);
+    $query = $this->prepare($path, $params);
     $response = new Response(500);
     try {
       $response = $this->http->post($this->buildPath($path), [
@@ -232,7 +232,7 @@ class Instagram {
    * @return \Instaphp\Instagram\Response
    */
   protected function delete($path, array $params = [], array $headers = []) {
-    $query = $this->prepare($path,$params);
+    $query = $this->prepare($path, $params);
     $response = new Response(500);
     try {
       $response = $this->http->delete($this->buildPath($path), [
@@ -258,9 +258,12 @@ class Instagram {
 
     $sig = $endpoint;
     $params['client_id'] = $this->client_id;
-    if (!empty($this->access_token)) {
-      unset($params['client_id']);
-      $params['access_token'] = $this->access_token;
+//    $this->log->info($this->getCurrentUser()->getEmail());
+    if (Subscriptions::PATH != $endpoint) {
+      if (!empty($this->access_token)) {
+        unset($params['client_id']);
+        $params['access_token'] = $this->access_token;
+      }
     }
 
     foreach ($params as $k => $v) {
@@ -268,7 +271,9 @@ class Instagram {
       $params[$k] = ($v);
     }
     $sig = hash_hmac('sha256', $sig, $this->client_secret, false);
+//    if (Subscriptions::PATH != $endpoint) {
     $params['sig'] = $sig;
+//    }
 
     return $params;
   }
@@ -380,5 +385,6 @@ class Instagram {
     $response = $e->getResponse();
     $this->log->debug(sprintf('Response code %s: %s', $response->getStatusCode(), $response->getReasonPhrase()));
   }
+
 
 }

@@ -43,6 +43,7 @@ namespace Instaphp\Instagram;
  */
 class Subscriptions extends Instagram
 {
+  const PATH = '/subscriptions';
 	/**
 	 * Creates a subscription to an object. Different objects require different
 	 * parameters. Please see {@link http://instagram.com/developer/realtime/#create-a-subscription Create a Subscription}
@@ -66,7 +67,7 @@ class Subscriptions extends Instagram
 			'aspect' => 'media'
 		];
 		$params = $params + $defaults;
-		return $this->Post('/subscriptions', $params);
+		return $this->Post(self::PATH, $params);
 	}
 	
 	/**
@@ -122,15 +123,12 @@ class Subscriptions extends Instagram
 				case 'user':
 					$responses['user'][$sub['object_id']][] = $this->Get(sprintf('/users/%s/media/recent', $sub['object_id']), ["count" => $count, 'min_timestamp' => $sub['time']]);
 					break;
-				
 				case 'tag':
 					$responses['tag'][$sub['object_id']][] = $this->Get(sprintf('/tags/%s/media/recent', $sub['object_id']));
 					break;
-				
 				case 'location':
 					$responses['location'][$sub['object_id']][] = $this->Get(sprintf('/locations/%s/media/recent', $sub['object_id']), ['count' => $count, 'min_timestamp' => $sub['time']]);
 					break;
-				
 				case 'geography':
 					$responses['geography'][$sub['object_id']][] = $this->Get(sprintf('/geographies/%s/media/recent', $sub['object_id']), ['count' => $count]);
 					break;

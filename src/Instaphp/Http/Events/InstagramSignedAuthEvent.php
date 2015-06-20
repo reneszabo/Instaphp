@@ -54,6 +54,5 @@ class InstagramSignedAuthEvent implements \GuzzleHttp\Event\SubscriberInterface
 		if (preg_match('/post|put|delete/i', $method)) {
 			$e->getRequest()->setHeader('X-Insta-Forwarded-For', join('|', array($this->ip_address, hash_hmac('SHA256', $this->ip_address, $this->client_secret))));
 		}
-		// var_dump($e->getRequest()->getHeaders());
 	}
 }
